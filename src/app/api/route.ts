@@ -3,6 +3,10 @@ import { createClient } from "@supabase/supabase-js";
 import { ipAddress } from "@vercel/edge";
 import jsSHA from "jssha/sha256";
 
+export const config = {
+	runtime: "edge",
+};
+
 const supabaseUrl = process.env.SUPABASE_URL ?? "";
 const supabaseKey = process.env.SUPABASE_KEY ?? "";
 const supabase = createClient<Database>(supabaseUrl, supabaseKey);
