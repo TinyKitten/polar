@@ -1,6 +1,5 @@
 import type { Database } from "@/types/database.types";
 import { createClient } from "@supabase/supabase-js";
-import { ipAddress } from "@vercel/edge";
 import jsSHA from "jssha/sha256";
 
 export const config = {
@@ -12,7 +11,8 @@ const supabaseKey = process.env.SUPABASE_KEY ?? "";
 const supabase = createClient<Database>(supabaseUrl, supabaseKey);
 
 export async function POST(request: Request) {
-	const ip = ipAddress(request) || "unknown";
+	const ip =
+		request.headers.get("x-forwarded-for")?.split(/\s*,\s*/) ?? "unknown";
 
 	const shaObj = new jsSHA("SHA-256", "TEXT", {
 		hmacKey: { value: process.env.HAMAC_KEY ?? "", format: "TEXT" },
