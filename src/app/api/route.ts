@@ -36,7 +36,7 @@ export async function POST(request: Request) {
 		);
 	}
 
-	return new Response(JSON.stringify({ success: true, key: kvKey }), {
+	return new Response(JSON.stringify({ success: true, key: kvKey, ip }), {
 		status: 201,
 	});
 }
