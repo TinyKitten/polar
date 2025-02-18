@@ -11,8 +11,7 @@ const supabaseKey = process.env.SUPABASE_KEY ?? "";
 const supabase = createClient<Database>(supabaseUrl, supabaseKey);
 
 export async function POST(request: Request) {
-	const ip =
-		request.headers.get("x-forwarded-for")?.split(/\s*,\s*/) ?? "unknown";
+	const ip = request.headers.get("x-forwarded-for") ?? "unknown";
 
 	const shaObj = new jsSHA("SHA-256", "TEXT", {
 		hmacKey: { value: process.env.HAMAC_KEY ?? "", format: "TEXT" },
